@@ -1,0 +1,5 @@
+.venv/
+__pycache__/
+*.pyc
+headlines.json
+headlines_*.json
