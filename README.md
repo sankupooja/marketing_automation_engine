@@ -22,34 +22,23 @@ Day 2: Persistence & Engineering Professionalism
 Core Objective: Move from ephemeral JSON storage to a structured, queryable
 database layer.
 Key Accomplishments:
-Database Architecture: Designed a relational schema to persist
+Database Architecture:
+Designed a relational schema to persist
 headline data, ensuring long-term data accessibility.
-Service-Oriented Design: Created db_manager.py as a dedicated
+Service-Oriented Design:
+Created db_manager.py as a dedicated
 database abstraction layer, decoupling data storage logic from processing
 logic.
-
-•
-•
-◦
-
-◦
-
-◦
-
-•
-
-•
-◦
-
-◦
-
-Data Integrity & Security: Implemented parameterized SQL queries to
+Data Integrity & Security:
+Implemented parameterized SQL queries to
 prevent security vulnerabilities and utilized context managers to ensure
 safe database connections.
-Workflow Optimization: Configured .gitignore to maintain a clean
+Workflow Optimization:
+Configured .gitignore to maintain a clean
 repository by excluding binary data, caches, and environment-specific
 artifacts.
-Version Control Discipline: Successfully adopted feature branching and
+Version Control Discipline:
+Successfully adopted feature branching and
 documented commit history to reflect professional engineering standards.
 
 Technical Stack
@@ -58,6 +47,7 @@ Language: Python 3
 Storage: SQLite (Persistence Layer)
 Version Control: Git/GitHub
 Architecture: Modular, service-oriented pipeline
+
 Next Development Phase
 Sentiment Analysis: Integrate NLP models to categorize data and refine content
 qualification.
