@@ -2,6 +2,7 @@ import glob
 import json
 import os
 
+import analyzer
 import db_manager
 
 keywords_to_track = ["AI", "Marketing", "Business", "social media"]
@@ -27,7 +28,12 @@ def main() -> None:
     for headline in headlines:
         title = headline["title"]
         if any(keyword.lower() in title.lower() for keyword in keywords_to_track):
-            db_manager.insert_headline(title=title, source=headline["link"])
+            sentiment = analyzer.get_sentiment(title)
+            db_manager.insert_headline(
+                title=title,
+                source=headline["link"],
+                sentiment=sentiment,
+            )
             inserted_count += 1
 
     print(f"Inserted {inserted_count} headline(s) into headlines.db")
