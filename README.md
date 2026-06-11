@@ -1,6 +1,23 @@
 Marketing Automation Engine:
 Development Progress Report
 
+```mermaid
+graph LR
+    A[Raw Data] --> B(Processor);
+    B --> C{Analyzer};
+    C -->|Sentiment| D[(SQLite Database)];
+    
+    subgraph The_Intelligence_Pipeline [The Intelligence Pipeline]
+    B
+    C
+    D
+    end
+    
+    style D fill:#f9f,stroke:#333,stroke-width:2px
+    style C fill:#bbf,stroke:#333,stroke-width:2px
+```
+
+
 Overview
 
 This document tracks the evolution of the Marketing Automation Engine, an end-to-end
