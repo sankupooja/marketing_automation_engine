@@ -27,17 +27,8 @@ def init_db() -> None:
             conn.execute("ALTER TABLE headlines ADD COLUMN sentiment REAL")
 
 
-def insert_headline(
-    title: str,
-    source: str,
-    sentiment: float,
-    captured_at: datetime | None = None,
-) -> None:
-    if captured_at is None:
-        captured_at = datetime.now()
-
+def insert_many_headlines(data_list: list[tuple[str, str, float]]) -> None:
     with sqlite3.connect(get_db_path()) as conn:
-        conn.execute(
-            "INSERT INTO headlines (captured_at, title, source, sentiment) VALUES (?, ?, ?, ?)",
-            (captured_at, title, source, sentiment),
-        )
+        conn.executemany("INSERT INTO headlines (captured_at, title, source, sentiment) VALUES (datetime('now'), ?, ?, ?)", data_list)    # Insert the headlines into the database using a bulk insert
+        conn.commit() # Commit the transaction
+    
