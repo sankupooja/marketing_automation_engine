@@ -1,36 +1,42 @@
-Day 3: Intelligence Enrichment & Data Migration
-Objective: Transform raw, unstructured text into actionable intelligence by integrating Sentiment Analysis and performing safe database migrations.
+# AI-Powered Marketing Automation Engine
 
-Key Achievements:
+## Project Evolution Overview
+The system has matured from a basic data collection script into a sophisticated, AI-driven intelligence pipeline featuring real-time sentiment analysis, robust data integrity controls, and an interactive analytical dashboard.
 
-Sentiment Integration: Successfully integrated TextBlob to calculate sentiment polarity scores for all incoming news headlines, allowing the system to categorize content by emotional intent (Positive vs. Neutral/Negative).
+---
 
-Data Enrichment Strategy: Expanded the SQLite schema to include a sentiment column, effectively transforming raw text data into quantitative intelligence.
+## Intelligence Enrichment & Data Migration (Day 3)
+* **Sentiment Integration:** Integrated NLP capabilities to calculate sentiment polarity scores, enabling the system to categorize headlines by emotional intent (Positive vs. Neutral/Negative).
+* **Data Enrichment Strategy:** Expanded the SQLite schema to include a `sentiment` column, successfully transforming raw text data into quantitative intelligence.
+* **Engineering Best Practice (The Backfill):** Implemented a non-destructive `backfill_sentiment.py` migration script, ensuring historical data was preserved and retroactively updated with sentiment scores while maintaining 100% data integrity.
+* **Pipeline Optimization:** Updated the core processor to compute and persist sentiment scores in real-time.
 
-Engineering Best Practice (The Backfill): Instead of destructive data clearing, implemented a backfill_sentiment.py migration script. This ensured historical data was preserved and retroactively updated with sentiment scores, maintaining 100% data integrity.
+## Dashboard & Pipeline Enhancements (Day 4)
+* **Data Integrity Improvements:**
+    * **Duplicate Handling:** Integrated `drop_duplicates("title", inplace=True)` to prevent biased sentiment reporting caused by repetitive news.
+    * **Validation:** Enforced accurate data casting for `captured_at` timestamps to enable reliable time-series analysis.
+* **Analytical Visualization:** Shifted from raw data plotting to meaningful daily trend analysis. The dashboard now employs `groupby` and date resampling to visualize average daily sentiment trends.
+* **On-Demand Pipeline Refresh:** Added a "Refresh Data" button to the Streamlit UI, enabling users to trigger the `harvester` and `processor` pipelines directly from the browser for immediate updates.
+* **Modular Integration:** Refactored the dashboard to interface directly with backend modules, ensuring the database is synchronized before view refreshes.
 
-Pipeline Optimization: Updated the core processor to compute and persist sentiment scores in real-time, completing the move from simple ingestion to an AI-enriched data pipeline.
+---
 
-Technical Highlights:
+## Technical Highlights
+* **NLP & Intelligence:** Applied NLP techniques to extract sentiment values, providing context to raw headlines.
+* **SQL Migrations:** Executed non-destructive schema updates to manage evolving data requirements without data loss.
+* **System Reliability:** Ensured pipeline idempotency and data consistency through automated maintenance utilities.
+* **Interactive UI:** Built a responsive Streamlit dashboard with real-time refresh capabilities and automated trend aggregation.
 
-NLP: Applied natural language processing techniques to extract sentiment values from headlines.
+## System Architecture Evolution
 
-SQL Migrations: Executed non-destructive schema updates to manage evolving data requirements.
+| Stage | Capability |
+| :--- | :--- |
+| **Ingestion** | Harvester reads raw JSON data from diverse sources. |
+| **Validation** | Duplicate removal and strict data type casting enforced. |
+| **Enrichment** | Sentiment polarity calculated via NLP models. |
+| **Processing** | Vectorized keyword filtering and daily trend aggregation. |
+| **Storage** | Transactional batch insertion with historical backfill support. |
+| **Presentation** | Interactive Streamlit dashboard with live pipeline triggering. |
 
-System Reliability: Ensured pipeline idempotency and data consistency through robust script-based maintenance utilities.
-
-
-Day 4:
-Recent Updates: Dashboard & Pipeline Enhancements
-1. Data Integrity Improvements
-Duplicate Handling: Integrated drop_duplicates("title", inplace=True) into the data loading pipeline to ensure that identical headlines are removed, preventing biased sentiment results.
-
-Data Validation: Ensured that the captured_at column is correctly cast to datetime objects for accurate time-series manipulation.
-
-2. Analytical Visualization
-Daily Sentiment Aggregation: Shifted from raw point plotting to a more meaningful daily trend analysis. The dashboard now uses groupby with date resampling to calculate and visualize the average daily sentiment using st.line_chart.
-
-3. On-Demand Pipeline Refresh
-Interactive Updates: Added a "Refresh Data" button to the Streamlit UI. This allows users to trigger the harvester and processor pipelines directly from the browser.
-
-Modular Integration: Refactored the dashboard to interface with backend modules, ensuring the database is updated with the latest data before the dashboard refreshes its view.
+---
+*Built for scale, precision, and performance.*
