@@ -11,18 +11,24 @@ def run_backfill():
     missing_data = cursor.fetchall()
     
     print(f"Found {len(missing_data)} rows to backfill...")
+
+    # 2. Extract IDs and Titles for batch processing
+    ids = [row[0] for row in missing_data]
+    titles = [row[1] for row in missing_data]
     
-    for row in missing_data:
-        headline_id, title = row
-        # 2. Calculate sentiment
-        sentiment = analyzer.get_sentiment(title)
-        
-        # 3. Update the database
-        cursor.execute(
-            "UPDATE headlines SET sentiment = ? WHERE id = ?", 
-            (sentiment, headline_id)
-        )
-        print(f"Updated ID {headline_id} with sentiment {sentiment}")
+    # 3. Calculate batch sentiments using our new analyzer function
+    sentiments = analyzer.get_sentiments(titles)
+    
+    # 4. Prepare data for bulk update
+    # Create a list of tuples: (sentiment, id)
+    update_data = list(zip(sentiments, ids))
+    
+    # 5. Execute batch update
+    cursor.executemany(
+        "UPDATE headlines SET sentiment = ? WHERE id = ?", 
+        update_data
+    )
+    
         
     conn.commit()
     conn.close()

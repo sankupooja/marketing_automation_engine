@@ -27,7 +27,11 @@ def main() -> None:
 
     inserted_count = 0
     df = pd.DataFrame(headlines) # Create a dataframe from the headlines
-    df['sentiment'] = df['title'].apply(analyzer.get_sentiment) # Get the sentiment of the headlines
+     
+    # # Get the sentiment of the headlines
+    titles_list = df['title'].tolist() # Convert the titles to a list
+    df['sentiment'] = analyzer.get_sentiments(titles_list) # Get the sentiment of the headlines using the pipeline
+
     df = validate_data(df) # Validate the dataframe
 
     # Create a pattern string that looks for any of our keywords
